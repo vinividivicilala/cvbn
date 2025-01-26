@@ -1,0 +1,29 @@
+---
+title: "Title"
+date: "2021-MM-DD"
+# optional
+# excerpt: ""
+---
+
+# Hi
+
+{/** MDX comment that works with prettier **/}
+
+dont use markdown image syntax
+![Alt Text](https://get.svg.workers.dev/?s=64&f=gray "Image Title")
+use `<Image />` tag
+
+---
+
+for pure html consider wrapping it in jsx `{ <br/> }`
+
+rendered:
+[Headers](#headers) { <br/>}
+
+---
+
+{/** white spaces are required to avoid prettier putting all code on one line **/}
+
+```js
+const shortOneLine = "asd";
+```

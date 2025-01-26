@@ -1,0 +1,356 @@
+@import "highlight.js/styles/base16/gruvbox-dark-medium.css";
+/**
+ * This injects Tailwind's base styles and any base styles registered by
+ * plugins.
+ */
+@tailwind base;
+
+/**
+  * This injects Tailwind's component classes and any component classes
+  * registered by plugins.
+  */
+@tailwind components;
+
+/**
+  * This injects Tailwind's utility classes and any utility classes registered
+  * by plugins.
+  */
+@tailwind utilities;
+
+:root {
+  --v-orange: #eb4a2e;
+  --v-black: #1d3131;
+  --v-beige: #fcf8ed;
+}
+
+/* layout debugging */
+* {
+  /* border: 1px groove; */
+}
+
+/**
+  * Font-sizes
+
+  * Website title: 3rem / 5xl
+
+  * Prose
+  * h1: 2.25rem / 4xl
+  * h2: 1.5rem / 2xl
+  * h3: 1.25rem / text-xl
+  * h4: inherit
+  */
+
+html {
+  @apply bg-v-beige text-v-black;
+  /* fix layout shift on scrollbar, src: https://stackoverflow.com/a/39289453/7138644 */
+  overflow-x: hidden;
+  margin-right: calc(-1 * (100vw - 100%));
+}
+
+#__next,
+.garage,
+.v-global-wrapper {
+  min-height: 100vh;
+}
+
+@layer utilities {
+  .v-items-start {
+    align-items: start;
+  }
+
+  .v-content-baseline {
+    align-content: baseline;
+  }
+
+  .v-col-full {
+    @apply col-span-full;
+  }
+
+  .v-col-core {
+    @apply md:col-start-1 md:col-end-8 col-span-full;
+  }
+
+  .v-col-right {
+    @apply md:col-start-9 md:col-end-13 col-span-full;
+  }
+
+  .v-underline {
+    text-decoration-line: underline;
+    text-underline-position: under;
+    text-underline-offset: 1px;
+    cursor: pointer;
+  }
+
+  .v-basis-25 {
+    flex-basis: 25%;
+  }
+  .v-basis-50 {
+    flex-basis: 50%;
+  }
+  .v-basis-75 {
+    flex-basis: 75%;
+  }
+  .v-basis-100 {
+    flex-basis: 100%;
+  }
+
+  /* * Used for `v-h-remaining-screen` calc */
+  .v-global-wrapper {
+    @apply pt-2 pb-10 mx-5 md:mx-auto;
+  }
+  .v-text-giant {
+    @apply text-4xl font-bold md:text-5xl;
+  }
+}
+
+@layer base {
+  .v-main-nav {
+    @apply h-6 md:h-auto;
+  }
+
+  .v-main-nav a {
+    @apply mr-4 v-underline;
+  }
+  .v-main-nav a.active,
+  .v-main-nav a:active {
+    text-decoration-color: var(--v-orange);
+    text-decoration-thickness: 2.5px;
+  }
+
+  .v-main-nav svg {
+    fill: currentColor;
+  }
+  .v-main-nav a:hover svg {
+    box-shadow: inset 0 0 0 1px var(--v-black);
+    border-radius: 5px;
+  }
+
+  .v-underline-links a:not([role^="doc-"]) {
+    @apply v-underline;
+    text-decoration-color: var(--v-black);
+    text-decoration-thickness: 1px;
+  }
+
+  .v-underline-links a:visited[target="_blank"] {
+    text-decoration-color: theme("colors.purple.800");
+  }
+
+  .goto-button {
+    writing-mode: vertical-lr;
+    @apply font-mono text-sm !no-underline text-gray-350 hover:text-gray-400;
+  }
+
+  @screen md {
+    a:hover:not(.active) {
+      @apply v-underline;
+      text-decoration-thickness: 2px;
+    }
+
+    .go-bottom .goto-button,
+    #jembottom .goto-button {
+      visibility: hidden;
+    }
+
+    .go-bottom:hover .goto-button,
+    #jembottom:hover .goto-button {
+      visibility: visible;
+    }
+  }
+
+  .blog-list ul li::marker {
+    @apply text-sm text-gray-500;
+  }
+
+  /**
+   * MDX
+   */
+  /* ! Important, do not div tag @apply, div is used to break out of it from within mdx */
+
+  .v-layout .nextjs-image-wrapper {
+    @apply v-col-full;
+  }
+
+  /* Code blocks are wrapped in pre, inline code wrapped in whatever parent *
+  /* .v-layout code, */
+  .v-layout > pre,
+  .v-layout > hr {
+    @apply v-col-full;
+  }
+
+  .v-layout > h1,
+  .v-layout > h2,
+  .v-layout > h3,
+  .v-layout > h4,
+  .v-layout > h5,
+  .v-layout > h6,
+  .v-layout > p,
+  .v-layout > ul,
+  .v-layout > ol,
+  /* .v-layout li, */
+  .v-layout > blockquote,
+  .v-layout > em,
+  .v-layout > strong {
+    @apply v-col-core;
+  }
+
+  /* GitHub flavored markdown (GFM) */
+  .v-layout > del,
+  .v-layout > table,
+  .v-layout > tbody,
+  .v-layout > td,
+  .v-layout > th,
+  .v-layout > thead,
+  .v-layout > tr {
+    @apply v-col-core;
+  }
+}
+
+/**
+ * Customize @tailwindcss/typography
+ */
+
+/*
+  Heads up, margins don't collapse because I'm using grid.
+  Elements are treated as horizontal siblings
+  from the spec: "the margins of adjacent grid items do not collapse."
+
+  Fine. I'll collapse them myself v.v
+ */
+
+.prose * + h1,
+.prose * + h2,
+.prose * + h3,
+.prose * + h4 {
+  @apply mt-2;
+}
+
+.prose li + li {
+  @apply mt-1;
+}
+
+.prose p > img {
+  display: initial;
+  vertical-align: initial;
+}
+
+.prose .anchor {
+  float: left;
+  text-decoration: none;
+  @apply -ml-4;
+}
+
+svg.jamicon {
+  display: inline-block;
+}
+
+.autolink svg {
+  @apply md:invisible;
+}
+
+h1:hover .autolink svg,
+h2:hover .autolink svg,
+h3:hover .autolink svg,
+h4:hover .autolink svg,
+h5:hover .autolink svg,
+h6:hover .autolink svg,
+h1 .autolink:focus svg,
+h2 .autolink:focus svg,
+h3 .autolink:focus svg,
+h4 .autolink:focus svg,
+h5 .autolink:focus svg,
+h6 .autolink:focus svg {
+  @apply md:visible;
+}
+
+.prose table {
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  overflow: auto;
+}
+
+.prose thead,
+.prose tbody tr {
+  @apply border-gray-350;
+}
+
+.prose thead th,
+.prose tbody td {
+  @apply p-2 align-middle border border-gray-350;
+}
+
+.prose blockquote {
+  @apply px-4 mb-4 italic text-gray-500 border-l-4 border-gray-350;
+}
+.prose blockquote p {
+  margin-bottom: 0;
+}
+
+.prose hr {
+  @apply mt-2 mb-4 border-t-2 border-gray-350;
+}
+
+/**
+ * Customize highlight.js
+ */
+
+.hljs {
+  @apply mb-4 overflow-x-auto;
+  font-size: 14px;
+}
+
+.inline-code,
+:not(pre) > code {
+  @apply rounded;
+  color: #d5c4a1;
+  background: #282828;
+  padding: 0.15em 0.2em 0.05em 0.15rem;
+  white-space: normal;
+}
+
+pre[class*="language-"]::selection,
+pre[class*="language-"] ::selection,
+code[class*="language-"]::selection,
+code[class*="language-"] ::selection {
+  /* dark-medium */
+  color: #282828;
+  background: #d5c4a1;
+
+  /* Prism gruvbox theme references */
+  /* light gruvbox https://github.com/PrismJS/prism-themes/blob/master/themes/prism-gruvbox-light.css */
+  /* color: #282828;
+  background: #a89984; */
+  /* dark gruvbox https://github.com/PrismJS/prism-themes/blob/master/themes/prism-gruvbox-dark.css */
+  /* color: #fbf1c7;
+  background: #7c6f64; */
+}
+
+/* TODO: Display footnotes as sidenotes on desktop */
+/* ! WIP: Github footnote styles */
+/* Style the footnotes section. */
+.footnotes {
+  /* font-size: smaller;
+  color: #8b949e;
+  border-top: 1px solid #30363d; */
+}
+
+/* Hide the section label for visual users. */
+/* .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    word-wrap: normal;
+    border: 0;
+  } */
+
+/* Place `[` and `]` around footnote calls. */
+[data-footnote-ref]::before {
+  content: "[";
+}
+
+[data-footnote-ref]::after {
+  content: "]";
+}

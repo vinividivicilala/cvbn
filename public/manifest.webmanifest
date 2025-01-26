@@ -1,0 +1,21 @@
+{
+  "name": "Viktor Khotimchenko Portfolio",
+  "short_name": "mrv1k.me",
+  "theme_color": "#eb4a2e",
+  "background_color": "#fcf8ed",
+  "display": "minimal-ui",
+  "orientation": "portrait",
+  "scope": "/",
+  "start_url": "/",
+  "icons": [
+    { "src": "/icon-192.png", "type": "image/png", "sizes": "192x192" },
+    { "src": "/icon-512.png", "type": "image/png", "sizes": "512x512" },
+    {
+      "src": "/maskable-192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "maskable"
+    }
+  ],
+  "splash_pages": null
+}
